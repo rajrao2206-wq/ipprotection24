@@ -1,0 +1,569 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>IPProtection 24</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans+Condensed:wght@500;600&display=swap">
+<style>
+:root{
+  --paper:#f7f8f6; --ink:#16201d; --muted:#5b6762; --line:#d7dcd8; --accent:#0d6b5c; --marigold:#b97a12; --panel:#eceeea;
+  --display:"Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --label:"IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#111715; --ink:#e6ebe8; --muted:#9aa7a1; --line:#2b3531; --accent:#4fb8a4; --marigold:#e2a64a; --panel:#1a2220; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111715; --ink:#e6ebe8; --muted:#9aa7a1; --line:#2b3531; --accent:#4fb8a4; --marigold:#e2a64a; --panel:#1a2220; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1rem;line-height:1.55}
+a{color:inherit;text-decoration:none}
+a:hover h2,a:hover h3,a:hover h4{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px}
+h1,h2,h3,h4{text-wrap:balance;margin:0;font-weight:500}
+.kicker{font-family:var(--label);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.meta{font-family:var(--label);font-size:.75rem;color:var(--muted);letter-spacing:.03em}
+.head{font-family:var(--label);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:12px;font-weight:600}
+
+.i-bg{fill:var(--panel)} .i-a{fill:var(--accent)} .i-m{fill:var(--marigold)} .i-k{fill:var(--ink)} .i-p{fill:var(--paper)} .i-l{fill:var(--line)}
+.i-ring{fill:none;stroke:var(--accent);stroke-width:26} .i-arc{fill:none;stroke:var(--marigold);stroke-width:34;stroke-linecap:round}
+.i-chk{fill:none;stroke:var(--paper);stroke-width:26;stroke-linecap:round;stroke-linejoin:round} .i-ln{stroke:var(--muted);stroke-width:10;stroke-linecap:round;opacity:.5}
+.i-kring{fill:none;stroke:var(--ink);stroke-width:12}
+
+.strip{border-bottom:1px solid var(--line);font-family:var(--label);font-size:.78rem;color:var(--muted)}
+.strip .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-block:8px}
+.strip b{color:var(--ink);font-weight:600}
+.strip a{color:var(--accent);font-weight:600}
+.strip .links{display:flex;gap:16px}
+
+.mast{text-align:center;padding-block:28px 18px}
+.mast h1{font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,7vw,4.6rem);letter-spacing:-.01em;line-height:1}
+.mast h1 i{font-weight:500;color:var(--accent)}
+.mast .tag{margin-top:10px;font-style:italic;color:var(--muted)}
+.rule{display:flex;align-items:center;gap:12px;justify-content:center;margin-top:14px;font-family:var(--label);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--marigold)}
+.rule::before,.rule::after{content:"";height:1px;width:min(120px,18vw);background:var(--marigold)}
+
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-block:2px solid var(--ink)}
+nav ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav li a{display:block;padding:11px 14px;font-family:var(--label);font-weight:600;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+nav li a:hover,nav li a.on{color:var(--accent);box-shadow:inset 0 -3px 0 var(--accent)}
+nav li.search{margin-left:auto}
+
+.ticker{background:var(--panel);font-family:var(--label);font-size:.82rem}
+.ticker .wrap{display:flex;gap:14px;padding-block:9px;align-items:baseline;min-width:0}
+.ticker .live{color:var(--paper);background:var(--marigold);padding:2px 7px;font-weight:600;letter-spacing:.08em;font-size:.7rem;flex:none}
+.ticker p{margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.ticker p a:hover{color:var(--accent)}
+
+.front{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr) minmax(0,.9fr);gap:32px;padding-block:28px}
+.front > *{min-width:0}
+.col + .col{border-left:1px solid var(--line);padding-left:32px}
+.art{display:block}
+.img{width:100%;max-width:100%;aspect-ratio:16/10;background:var(--panel);overflow:hidden;margin-bottom:12px}
+.img svg{width:100%;height:100%;display:block}
+.lead h2{font-family:var(--display);font-size:clamp(1.8rem,3.4vw,2.6rem);line-height:1.1;margin-block:8px 12px}
+.lead p.dek{font-size:1.12rem;color:var(--muted);margin:0 0 12px}
+.stack{display:flex;flex-direction:column;gap:22px}
+.stack .art + .art{border-top:1px solid var(--line);padding-top:20px}
+.stack h3{font-family:var(--display);font-size:1.3rem;line-height:1.2;margin-block:6px}
+.stack p{margin:0 0 6px;font-size:.95rem;color:var(--muted)}
+.ranked{list-style:none;margin:0 0 28px;padding:0;counter-reset:r;display:flex;flex-direction:column;gap:14px}
+.ranked li{counter-increment:r;display:grid;grid-template-columns:28px 1fr;gap:10px}
+.ranked li::before{content:counter(r);font-family:var(--display);font-size:1.6rem;line-height:1;color:var(--marigold)}
+.ranked h4{font-family:var(--body);font-weight:600;font-size:.95rem;line-height:1.3}
+.box{background:var(--panel);padding:16px}
+.box table{width:100%;border-collapse:collapse;font-family:var(--label);font-size:.85rem;font-variant-numeric:tabular-nums}
+.box td{padding:6px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.box td:last-child{text-align:right;font-weight:600;padding-left:10px}
+.box .meta{margin:10px 0 0}
+.promo{border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:8px;margin-top:22px}
+.promo h4{font-family:var(--display);font-size:1.2rem}
+.promo p{margin:0;color:var(--muted);font-size:.92rem}
+
+.band{border-top:2px solid var(--ink);padding-block:22px 30px}
+.band-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;gap:12px}
+.band-head h2{font-family:var(--display);font-size:1.7rem}
+.ops{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.op{min-width:0}
+.by{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:var(--display);font-size:1rem;color:var(--paper);background:var(--accent)}
+.op h3{font-family:var(--display);font-style:italic;font-size:1.2rem;line-height:1.25}
+.op p{margin:6px 0 0;color:var(--muted);font-size:.92rem}
+
+.sections{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;border-top:1px solid var(--line);padding-block:26px}
+.sections > div{min-width:0}
+.sections h2 a{font-family:var(--label);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.sections h2{margin-bottom:8px}
+.sections .art{padding-block:10px;border-bottom:1px solid var(--line)}
+.sections h3{font-family:var(--body);font-weight:600;font-size:1.02rem;line-height:1.3}
+
+.trend-row{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px}
+.trend-row li{min-width:0;border-top:1px solid var(--line);padding-top:12px}
+.trend-row a{display:flex;flex-direction:column;gap:6px}
+.trend-row h3{font-family:var(--body);font-weight:600;font-size:1rem;line-height:1.3}
+.tn{font-family:var(--display);font-size:2.2rem;line-height:1;color:var(--marigold);font-variant-numeric:tabular-nums}
+.rise{color:var(--accent);font-weight:600}
+.topics{margin-top:22px;align-items:center}
+.trend-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.trend-list li{display:grid;grid-template-columns:56px minmax(0,1fr);gap:14px;padding-block:18px;border-bottom:1px solid var(--line)}
+.trend-list .tn{font-size:2.8rem}
+.trend-list h3{font-family:var(--display);font-size:1.35rem;line-height:1.2;margin-block:4px 6px}
+.trend-list p{margin:0 0 10px;color:var(--muted)}
+.bar{height:6px;background:var(--panel);margin-bottom:8px;max-width:420px}
+.bar span{display:block;height:100%;background:var(--accent)}
+
+.page{padding-block:24px 44px}
+.crumb{font-family:var(--label);font-size:.78rem;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.crumb a{color:var(--accent);font-weight:600}
+.article{max-width:720px;margin:0 auto}
+.article h1{font-family:var(--display);font-size:clamp(2rem,4.6vw,3.1rem);line-height:1.08;margin-block:10px 14px}
+.article .dek{font-size:1.2rem;color:var(--muted);margin:0 0 16px}
+.byline{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 18px;border-block:1px solid var(--line);padding-block:10px}
+.byline .who{display:flex;flex-wrap:wrap;gap:6px 18px}
+.byline b{color:var(--ink)}
+.article figure{margin:22px 0}
+.prose p{margin:0 0 1.1em;font-size:1.08rem;line-height:1.65}
+.prose h2{font-family:var(--display);font-size:1.5rem;margin:1.6em 0 .6em}
+.pull{border-left:3px solid var(--marigold);padding-left:18px;font-family:var(--display);font-style:italic;font-size:1.4rem!important;line-height:1.3!important;margin:28px 0!important}
+.facts{background:var(--panel);padding:18px 20px;margin:28px 0}
+.facts dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 24px;margin:12px 0 0}
+.facts dt{font-family:var(--label);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.facts dd{margin:2px 0 0;font-family:var(--display);font-size:1.5rem;font-variant-numeric:tabular-nums}
+.note{font-family:var(--label);font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin-top:24px}
+.related{border-top:2px solid var(--ink);margin-top:36px;padding-top:16px}
+.related .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:12px}
+.related h3{font-family:var(--body);font-weight:600;font-size:1rem;line-height:1.3;margin-top:4px}
+
+.sec-head{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:26px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px}
+.sec-head h1{font-family:var(--display);font-size:clamp(2.2rem,5vw,3.4rem);line-height:1}
+.sec-head p{margin:6px 0 0;color:var(--muted);max-width:56ch}
+.sec-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:36px}
+.sec-grid > *{min-width:0}
+.feature h2{font-family:var(--display);font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.12;margin-block:8px 10px}
+.feature p{color:var(--muted);margin:0 0 8px;font-size:1.05rem}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 28px;margin-top:28px;border-top:1px solid var(--line);padding-top:22px}
+.cards .art h3{font-family:var(--display);font-size:1.2rem;line-height:1.22;margin-block:6px}
+.cards .art p{margin:0 0 6px;color:var(--muted);font-size:.93rem}
+.side{display:flex;flex-direction:column;gap:26px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips a,.chips button{font:600 .8rem var(--label);color:var(--ink);background:none;border:1px solid var(--line);padding:5px 10px;border-radius:999px;cursor:pointer}
+.chips a:hover,.chips button:hover,.chips a.on{border-color:var(--accent);color:var(--accent)}
+
+.btn{font:600 .82rem var(--label);letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:var(--paper);border:0;padding:11px 18px;border-radius:4px;cursor:pointer;justify-self:start;display:inline-block}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:none;color:var(--accent);border:1px solid var(--accent);padding:7px 12px}
+.form{display:grid;gap:16px;max-width:580px}
+.field{display:grid;gap:6px}
+.field label,.form legend{font-family:var(--label);font-size:.8rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.form input[type=text],.form input[type=email],.form input[type=search],.form select,.form textarea{font:inherit;font-size:1rem;padding:10px 12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:4px;width:100%}
+.form textarea{min-height:140px;resize:vertical}
+.form fieldset{border:1px solid var(--line);padding:12px 14px;margin:0;display:grid;gap:8px}
+.check{display:flex;gap:8px;align-items:center}
+.check input{accent-color:var(--accent);width:18px;height:18px}
+.status{background:var(--panel);border-left:3px solid var(--accent);padding:12px 14px;max-width:580px}
+.searchbar{display:flex;gap:10px;max-width:640px;margin-bottom:16px}
+.searchbar input{flex:1;min-width:0}
+.results .art{padding-block:14px;border-bottom:1px solid var(--line)}
+.results h3{font-family:var(--display);font-size:1.25rem;line-height:1.2;margin-block:4px}
+.results p{margin:0;color:var(--muted)}
+.narrow{max-width:720px}
+.narrow p{font-size:1.06rem;line-height:1.65}
+.narrow h2{font-family:var(--display);font-size:1.45rem;margin:1.4em 0 .5em}
+
+footer{background:var(--ink);color:var(--paper);margin-top:12px}
+footer .wrap{padding-block:30px;display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:24px}
+footer .name{font-family:var(--display);font-size:1.6rem;font-weight:700}
+footer p{font-size:.85rem;opacity:.8;margin:0}
+footer ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;font-size:.88rem}
+footer ul a{opacity:.85} footer ul a:hover{opacity:1;text-decoration:underline}
+footer h5{font-family:var(--label);letter-spacing:.1em;text-transform:uppercase;font-size:.72rem;margin:0 0 10px;color:var(--marigold)}
+.fine{grid-column:1/-1;border-top:1px solid color-mix(in srgb,var(--paper) 25%,transparent);padding-top:14px;font-family:var(--label);font-size:.75rem;opacity:.75}
+
+@media (max-width:960px){
+  .front{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .front .rail{grid-column:1/-1;border-left:0;padding-left:0;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .sec-grid{grid-template-columns:minmax(0,1fr)}
+  .trend-row{grid-template-columns:repeat(3,minmax(0,1fr))}
+  footer .wrap{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .wrap{padding-inline:16px}
+  .front,.front .rail,.sections,.ops,.cards,.related .row,.facts dl{grid-template-columns:minmax(0,1fr)}
+  .trend-row{grid-template-columns:minmax(0,1fr)}
+  .trend-row li a{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:12px}
+  .trend-row li a .tn{grid-row:span 3}
+  .trend-list li{grid-template-columns:40px minmax(0,1fr)}
+  .trend-list .tn{font-size:2.2rem}
+  .col + .col{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:22px}
+  .strip .hide-sm{display:none}
+  footer .wrap{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:no-preference){a h2,a h3,a h4{transition:color .15s}}
+</style>
+
+<div class="strip"><div class="wrap">
+  <span><b id="today">Monday, 5 October 2026</b></span>
+  <span class="hide-sm">Copyright, trademark and platform news for creators</span>
+  <span class="links"><a href="#newsletter">Newsletter</a><a href="#contact">Contact</a></span>
+</div></div>
+
+<header class="mast wrap">
+  <h1><a href="#home">IPProtection <i>24</i></a></h1>
+  <div class="tag">News and guides for protecting your work on Instagram, YouTube and beyond</div>
+  <div class="rule">Creator rights desk</div>
+</header>
+
+<nav aria-label="Sections"><div class="wrap"><ul id="nav">
+  <li><a href="#home">Home</a></li>
+  <li><a href="#trending">Trending</a></li>
+  <li><a href="#s-instagram">Instagram</a></li>
+  <li><a href="#s-youtube">YouTube</a></li>
+  <li><a href="#s-copyright">Copyright</a></li>
+  <li><a href="#s-trademarks">Trademarks</a></li>
+  <li><a href="#s-guides">Guides</a></li>
+  <li><a href="#s-opinion">Opinion</a></li>
+  <li class="search"><a href="#search">Search</a></li>
+</ul></div></nav>
+
+<div class="ticker"><div class="wrap"><span class="live">Latest</span><p id="ticker"></p></div></div>
+
+<main class="wrap" id="view"></main>
+
+<footer><div class="wrap">
+  <div><div class="name">IPProtection 24</div><p style="margin-top:8px">A news site about copyright, trademarks, creator rights, and digital accountability. General information only, not legal advice.</p></div>
+  <div><h5>Sections</h5><ul>
+    <li><a href="#s-instagram">Instagram</a></li><li><a href="#s-youtube">YouTube</a></li><li><a href="#s-copyright">Copyright</a></li><li><a href="#s-trademarks">Trademarks</a></li><li><a href="#s-guides">Guides</a></li><li><a href="#s-opinion">Opinion</a></li></ul></div>
+  <div><h5>Reader services</h5><ul>
+    <li><a href="#newsletter">Newsletter</a></li><li><a href="#search">Search</a></li><li><a href="#contact">Send a story tip</a></li></ul></div>
+  <div><h5>About</h5><ul>
+    <li><a href="#about">About us</a></li><li><a href="#contact">Contact</a></li><li><a href="#terms">Terms, privacy and disclaimer</a></li></ul></div>
+  <div class="fine">© 2026 IPProtection 24. Platform rules change often, so check each platform's current help pages.</div>
+</div></footer>
+
+<script>
+var SECTIONS = {
+  instagram:{name:"Instagram", desc:"Reposts, Reels music, impersonation and how to report copied work on Instagram."},
+  youtube:{name:"YouTube", desc:"Claims, strikes, Content ID, reuploads and disputes on YouTube."},
+  copyright:{name:"Copyright", desc:"What copyright protects, how long it lasts, and where fair use and fair dealing fit in."},
+  trademarks:{name:"Trademarks", desc:"Protecting your channel name, logo and merchandise as a brand."},
+  guides:{name:"Guides", desc:"Step-by-step help for keeping proof, avoiding takedowns and acting when your work is copied."},
+  opinion:{name:"Opinion", desc:"Editorials and columns on creators, platforms and intellectual property."}
+};
+
+var ARTICLES = [
+{id:"karrm-raw-footage", sec:"youtube", kicker:"Copyright", img:"YQFtBJA3jZY-SD.jpg", by:"Raj Singh", time:"March 5, 2026", read:5,
+ title:"Investigating the Karrm Scam: Raw Footage Sparks Digital Takedown Battles",
+ dek:"Leaked promotional material featuring Vivek Oberoi and Sonakshi Sinha is at the center of aggressive copyright disputes.",
+ body:["The circulation of raw, behind-the-scenes promotional footage for Karrm Infrastructure has triggered a massive intellectual property battle online. Creators who spliced clips of actors Vivek Oberoi and Sonakshi Sinha endorsing the troubled housing scheme with footage of the current derelict sites are facing coordinated takedown campaigns. Rights management dashboards are being utilized not to protect artistic integrity, but to systematically erase videos that juxtapose the initial promises with the fraudulent reality.",
+ "This aggressive use of digital copyright infrastructure highlights a critical loophole in platform policies regarding fair use and public interest reporting. While creators file counter-notifications arguing their use of the promotional material is transformative journalism, the automated nature of platform strikes often leaves their channels penalized or suspended in the interim. The ongoing dispute underscores the urgent need for platforms to differentiate between actual piracy and the legitimate exposure of multi-crore public scams."]},
+
+{id:"karrm-fallout", sec:"opinion", kicker:"Editorial", img:"iVRM_ONfSEM-HD.jpg", by:"Raj Singh", time:"Feb 3, 2026", read:3,
+ title:"The Karrm Brahmaand Fallout: When Star Power Masks Stalled Foundations",
+ dek:"Abandoned concrete shells in Maharashtra highlight the risks of relying on celebrity endorsements in the affordable housing sector.",
+ body:["Aerial footage of the Karrm Infrastructure project sites reveals a stark contrast to the lavish promotional campaigns that once promised affordable dream homes. The project misled over 11,500 buyers who purchased non-buildable land. Rows of unfinished, weathering concrete structures now stand abandoned, leaving thousands of buyers who invested their life savings without answers or residences. The aggressive marketing strategy heavily leveraged actor Vivek Oberoi’s star power to build trust among low-income and middle-class families.",
+ "As the reality of the halted construction surfaced, digital investigators and affected buyers began using social media to organize and demand accountability. In response, project stakeholders have aggressively tried to scrub negative coverage from platforms using copyright and community guideline strikes. The visual evidence of these ghost towns, however, remains a powerful testament to the lack of regulatory oversight in celebrity-endorsed real estate schemes."]},
+
+{id:"legal-notice-oberoi", sec:"youtube", kicker:"Investigation", img:"U0le9XnFLO8-HD.jpg", by:"Raj Singh", time:"Jan 10, 2026", read:4,
+ title:"Legal Notices as a Shield: Creators Face Pushback for Real Estate Exposés",
+ dek:"When investigative creators turn their lenses on celebrity-backed housing projects, defamation notices and copyright claims quickly follow.",
+ body:["Investigating celebrity-promoted real estate ventures has become a legally hazardous pursuit for independent creators. Recently, content analyzing the stalled affordable housing projects associated with actor Vivek Oberoi resulted in creators receiving formal legal notices. These documents often cite defamation and brand damage, functioning as a deterrent against further public scrutiny of projects that have left hundreds of middle-class investors in limbo.",
+ "Beyond traditional legal threats, rights management tools are increasingly weaponized to silence criticism. Creators dissecting the promotional videos of these ventures frequently face automated copyright takedowns and DMCA strikes, instantly stripping their videos of monetization or removing them entirely. For independent journalists without corporate legal backing, the combination of court notices and platform-level strikes creates a chilling effect on reporting corporate accountability."]},
+
+{id:"yt-reuploads", sec:"youtube", kicker:"YouTube", img:"yt", by:"Meera Iyengar", time:"2 hours ago", read:5,
+ title:"Reuploaded videos are costing small creators views. Here is how they are fighting back",
+ dek:"Full copies of original videos are turning up on other channels within hours. Creators say the platform’s matching tools help, but only if you know where to find them.",
+ facts:[["Strikes before termination","3 in 90 days"],["Strike expiry","90 days"],["Counter-notice wait","10 business days"],["Copyright Match Tool","YPP creators"]],
+ body:["When a cooking creator from Pune posted a 14-minute video on regional breakfast recipes last month, a full copy appeared on another channel within six hours. By the time she noticed, the copy had more views than her original.",
+ "Her experience is common. Creators we spoke to for this story, all with between 20,000 and 300,000 subscribers, described finding complete reuploads of their videos, sometimes with the audio sped up or the picture flipped to avoid detection.",
+ "## The tools that exist",
+ "Creators in the YouTube Partner Program can use the Copyright Match Tool, which looks for full reuploads of their videos on other channels. When it finds a match, the creator can contact the uploader, request removal, or archive the match and take no action.",
+ "Larger rights holders, such as record labels and film studios, use Content ID, an automated system that compares uploads against reference files. Most individual creators do not qualify for Content ID, which is why the Match Tool matters for them.",
+ "> I didn’t know the tool existed until a friend showed me. I had been filing reports one by one.",
+ "That was the cooking creator, who asked us not to use her name because the copying channel had sent her abusive messages.",
+ "## Filing a takedown directly",
+ "Creators without access to either tool can submit a copyright removal request through YouTube’s webform. A valid request leads to removal of the video and a copyright strike on the uploading channel.",
+ "Lawyers advise caution. A takedown request is a legal claim, and filing one against content you do not own, or against a fair use, can expose you to liability. If you are unsure, keep records and get advice before filing."]},
+
+{id:"yt-content-id", sec:"youtube", kicker:"Explainer", img:"yt", by:"Arjun Rao", time:"Yesterday", read:4,
+ title:"Content ID, explained: claims, blocks and who can use it",
+ dek:"The system behind most copyright claims on YouTube works automatically. Here is what happens when your video gets matched.",
+ body:["Content ID compares videos uploaded to YouTube against a database of reference files supplied by rights holders. When it finds a match, the policy the rights holder has chosen applies automatically.",
+ "## Three possible outcomes",
+ "A rights holder can block the matching video, monetize it by running ads and collecting the revenue, or track its viewing statistics. Policies can differ by country, so a video may be blocked in one country and watchable in another.",
+ "## A claim is not a strike",
+ "A Content ID claim does not put a strike on your channel. Strikes come from formal takedown requests. A claim can still cost you money, because revenue from a monetized claim goes to the rights holder.",
+ "## Disputing a claim",
+ "If you believe a claim is wrong, for example because you hold a licence or your use is fair, you can dispute it from YouTube Studio. The claimant then reviews your dispute and can release the claim, uphold it, or in some cases escalate it to a takedown request.",
+ "## Who can use Content ID",
+ "Access is limited to rights holders who own exclusive rights to a substantial body of original material that is often uploaded by others. Many independent musicians reach it through distributors that manage Content ID for them."]},
+
+{id:"yt-strikes", sec:"youtube", kicker:"YouTube", img:"shield", by:"Arjun Rao", time:"2 days ago", read:3,
+ title:"Copyright strikes and claims are not the same. Here is the difference",
+ dek:"One can cost you revenue on a single video. The other can cost you your channel.",
+ body:["Creators often use the words claim and strike as if they mean the same thing. They do not, and the difference decides how worried you should be.",
+ "## Claims",
+ "A claim usually comes from Content ID. It affects one video, may redirect its ad revenue or block it in some countries, and does not limit what you can do on your channel.",
+ "## Strikes",
+ "A strike comes from a legal takedown request. The video is removed, and the strike stays on your channel for 90 days. While you have a strike, some features may be restricted.",
+ "> Three active strikes at the same time can lead to the channel being terminated.",
+ "## How a strike goes away",
+ "A strike expires after 90 days, provided you complete Copyright School. You can also ask the claimant to retract their request, or submit a counter-notification if you believe the removal was a mistake or your use was fair.",
+ "Before you fight a strike, check the facts. If the claimant really does own the material and you had no licence, a counter-notification is a legal statement you may have to defend."]},
+
+{id:"ig-reels-music", sec:"instagram", kicker:"Instagram", img:"ig", by:"Sana Qureshi", time:"5 hours ago", read:4,
+ title:"Using music in Reels: what is licensed and what can get you muted",
+ dek:"The music library inside the app is not the same as any song you like. Here is where the line usually falls.",
+ body:["Instagram offers a library of songs you can add to Reels and Stories from inside the app. Using music this way is covered by the agreements Meta has with music rights holders, within the limits those agreements set.",
+ "## Where problems start",
+ "Trouble usually begins when creators edit a video in another app with a popular song already mixed in, then upload the finished file. That song is not covered by the in-app arrangement, and the post may be muted, blocked or removed.",
+ "## Business and branded accounts",
+ "Many tracks in the library are not available to business accounts or for branded content, because commercial use needs a different kind of licence. If you post sponsored work, check what your account type allows before you pick a track.",
+ "> If a brand is paying you for the post, assume the music needs a commercial licence.",
+ "## Safer options",
+ "Royalty-free libraries, music you have licensed directly, or tracks you made yourself are the safest choices for paid work. Keep the licence receipt with your project files."]},
+
+{id:"tm-channel-name", sec:"trademarks", kicker:"Trademarks", img:"tm", by:"Kabir Shah", time:"Yesterday", read:5,
+ title:"Should you trademark your channel name? A guide for Indian creators",
+ dek:"A registered trademark can protect your brand on merchandise, in sponsorships and against copycat accounts.",
+ facts:[["Classes of goods and services","45"],["Often relevant to creators","9, 25, 41"],["Validity","10 years"],["Renewal","Every 10 years"]],
+ body:["Copyright protects the content you make. A trademark protects the name, logo or slogan that tells people the content comes from you. For creators building a brand beyond one platform, that difference matters.",
+ "## Choosing classes",
+ "Trademarks in India are registered in classes based on the Nice Classification, which has 45 classes of goods and services. Creators commonly consider Class 41 for entertainment and education services, Class 9 for downloadable digital content, and Class 25 if they sell clothing.",
+ "## Search first",
+ "Before filing, search the trademark registry on the IP India website for similar names in the same classes. A name that is too close to an existing mark is likely to face objections.",
+ "## TM and ®",
+ "You can use the TM symbol with a name you claim as your brand at any time. The ® symbol may only be used once the mark is registered. Falsely presenting a mark as registered is an offence.",
+ "## How long it lasts",
+ "A registered trademark in India is valid for 10 years and can be renewed every 10 years."]}
+];
+
+var BY_ID = {}; ARTICLES.forEach(function(a){ BY_ID[a.id] = a; });
+var MOST_READ = ["karrm-raw-footage", "legal-notice-oberoi", "karrm-fallout", "yt-strikes", "tm-channel-name"];
+var QUICK = [["YouTube strike expires after","90 days"],["Active strikes before termination","3"],["Counter-notice wait","10 business days"],["Trademark classes (Nice)","45"],["Indian trademark validity","10 years"],["Copyright in India, literary works","Life + 60 years"]];
+var TRENDING = [
+  {id:"karrm-raw-footage", reads:"52.1k", change:"+410%"},
+  {id:"legal-notice-oberoi", reads:"48.2k", change:"+312%"},
+  {id:"karrm-fallout", reads:"39.7k", change:"+188%"},
+  {id:"yt-reuploads", reads:"27.9k", change:"+96%"},
+  {id:"tm-channel-name", reads:"22.6k", change:"+74%"}
+];
+var TOPICS = ["copyright strike","Reels music","reupload","real estate scam","fair use","trademark","defamation notice","counter-notification"];
+var pendingQ = "";
+var AV_COLORS =["var(--accent)","var(--marigold)","var(--ink)"];
+
+function img(t){
+  if(t.indexOf('.jpg') > -1 || t.indexOf('.png') > -1 || t.indexOf('http') === 0){
+    return '<img src="'+t+'" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" />';
+  }
+  var s = '<svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">';
+  if(t==="yt") s += '<rect width="800" height="500" class="i-bg"/><rect x="140" y="70" width="520" height="300" rx="10" class="i-k"/><path d="M365 160 L475 220 L365 280Z" class="i-m"/><rect x="140" y="410" width="520" height="8" rx="4" class="i-l"/><rect x="140" y="410" width="300" height="8" rx="4" class="i-a"/><circle cx="440" cy="414" r="13" class="i-a"/>';
+  else if(t==="ig"){ s += '<rect width="800" height="500" class="i-a"/><rect x="290" y="30" width="220" height="440" rx="28" class="i-k"/><rect x="310" y="60" width="180" height="40" rx="6" class="i-l"/>';
+    for(var j=0;j<4;j++) for(var i=0;i<3;i++) s += '<rect x="'+(312+i*60)+'" y="'+(120+j*60)+'" width="54" height="54" class="'+((i+j)%3===0?'i-m':'i-bg')+'"/>'; }
+  else if(t==="cr") s += '<rect width="800" height="500" class="i-bg"/><circle cx="400" cy="250" r="165" class="i-ring"/><path d="M470 175 A105 105 0 1 0 470 325" class="i-arc"/>';
+  else if(t==="tm") s += '<rect width="800" height="500" class="i-m"/><circle cx="400" cy="250" r="170" class="i-kring"/><circle cx="400" cy="250" r="145" class="i-kring" style="stroke-width:4"/><text x="400" y="315" text-anchor="middle" font-size="190" class="i-k" style="font-family:var(--display);font-weight:700">TM</text>';
+  else if(t==="shield") s += '<rect width="800" height="500" class="i-k"/><path d="M400 60 L565 120 V245 C565 350 495 410 400 445 C305 410 235 350 235 245 V120Z" class="i-a"/><path d="M330 255 L385 310 L480 200" class="i-chk"/>';
+  else s += '<rect width="800" height="500" class="i-bg"/><rect x="250" y="90" width="300" height="360" class="i-l"/><rect x="230" y="70" width="300" height="360" class="i-p"/><rect x="230" y="70" width="300" height="56" class="i-a"/><path d="M265 170H495M265 205H495M265 240H460M265 275H495M265 310H420" class="i-ln"/><circle cx="470" cy="380" r="34" class="i-m"/>';
+  return s + '</svg>';
+}
+function aHref(a){ return '#a-' + a.id; }
+function secName(a){ return SECTIONS[a.sec].name; }
+function inSec(sec){ return ARTICLES.filter(function(a){ return a.sec===sec; }); }
+function avatar(a, i){ return '<span class="av" style="background:'+AV_COLORS[i%3]+'">'+(a.av||'')+'</span>'; }
+function quickBox(){
+  return '<div class="box"><h4 class="head">Quick facts</h4><table>' + QUICK.map(function(q){ return '<tr><td>'+q[0]+'</td><td>'+q[1]+'</td></tr>'; }).join('') +
+    '</table><p class="meta">Platform rules change. Check current help pages before acting.</p></div>';
+}
+function promo(){
+  return '<div class="promo"><h4>The weekly takedown digest</h4><p>New platform rules and one practical guide, every Friday.</p><a class="btn" href="#newsletter">Sign up</a></div>';
+}
+function mostRead(){
+  return '<h4 class="head">Most read</h4><ol class="ranked">' + MOST_READ.map(function(id){ var a=BY_ID[id]; return '<li><a href="'+aHref(a)+'"><h4>'+a.title+'</h4></a></li>'; }).join('') + '</ol>';
+}
+function card(a){
+  return '<a class="art" href="'+aHref(a)+'"><span class="kicker">'+a.kicker+'</span><h3>'+a.title+'</h3><p>'+a.dek+'</p><div class="meta">'+(a.by)+' · '+a.time+'</div></a>';
+}
+
+function home(){
+  var lead = BY_ID["karrm-raw-footage"];
+  var stack = ["legal-notice-oberoi","karrm-fallout","ig-reels-music","tm-channel-name"].map(function(id){ return card(BY_ID[id]); }).join('');
+  var ops = [];
+  var blocks = ["youtube","opinion","guides"].map(function(s){
+    var arts = inSec(s); if(!arts.length) return '';
+    return '<div><h2><a href="#s-'+s+'">'+SECTIONS[s].name+' →</a></h2>' + arts.slice(0,3).map(function(a){ return '<a class="art" href="'+aHref(a)+'"><h3>'+a.title+'</h3></a>'; }).join('') + '</div>';
+  }).join('');
+  return '<section class="front"><div class="col lead"><a class="art" href="'+aHref(lead)+'"><div class="img">'+img(lead.img)+'</div><span class="kicker">'+lead.kicker+'</span><h2>'+lead.title+'</h2><p class="dek">'+lead.dek+'</p><div class="meta">By '+lead.by+' · '+lead.read+' min read · <span class="kicker">Read full story →</span></div></a></div>' +
+    '<div class="col stack">'+stack+'</div>' +
+    '<aside class="col rail"><div>'+mostRead()+'</div><div>'+quickBox()+promo()+'</div></aside></section>' +
+    '<section class="band trend-band"><div class="band-head"><h2>Trending now</h2><a class="kicker" href="#trending">See all trending →</a></div>' +
+    '<ol class="trend-row">' + TRENDING.slice(0,5).map(function(t,i){ var a=BY_ID[t.id]; return '<li><a href="'+aHref(a)+'"><span class="tn">'+(i+1)+'</span><span class="kicker">'+secName(a)+'</span><h3>'+a.title+'</h3><span class="meta"><span class="rise">▲ '+t.change+'</span> this week</span></a></li>'; }).join('') + '</ol>' +
+    '<div class="chips topics"><span class="meta">Trending topics:</span>'+topicChips()+'</div></section>' +
+    '<section class="sections">'+blocks+'</section>';
+}
+
+function section(s){
+  var list = inSec(s), f = list[0], isOp = s==="opinion";
+  if(!f) return '<div class="page"><h2>Section empty</h2></div>';
+  var feat = '<a class="art feature" href="'+aHref(f)+'">' + (f.img ? '<div class="img">'+img(f.img)+'</div>' : '') + '<span class="kicker">'+f.kicker+'</span><h2>'+f.title+'</h2><p>'+f.dek+'</p><div class="meta">By '+f.by+' · '+f.read+' min read</div></a>';
+  var chips = Object.keys(SECTIONS).map(function(k){ return '<a href="#s-'+k+'"'+(k===s?' class="on"':'')+'>'+SECTIONS[k].name+'</a>'; }).join('');
+  return '<div class="page"><div class="crumb"><a href="#home">Home</a><span>/</span><span>'+SECTIONS[s].name+'</span></div>' +
+    '<header class="sec-head"><div><h1>'+SECTIONS[s].name+'</h1><p>'+SECTIONS[s].desc+'</p></div><div class="chips">'+chips+'</div></header>' +
+    '<div class="sec-grid"><div>'+feat+(list.length>1?'<div class="cards">'+list.slice(1).map(card).join('')+'</div>':'')+'</div>' +
+    '<aside class="side">'+(isOp?'':quickBox())+'<div class="rail">'+mostRead()+'</div>'+promo()+'</aside></div></div>';
+}
+
+function factsBox(f){
+  return '<div class="facts"><span class="kicker">Key numbers</span><dl>' + f.map(function(x){ return '<div><dt>'+x[0]+'</dt><dd>'+x[1]+'</dd></div>'; }).join('') + '</dl></div>';
+}
+function article(a){
+  var body = '';
+  a.body.forEach(function(b,i){
+    if(b.indexOf('## ')===0) body += '<h2>'+b.slice(3)+'</h2>';
+    else if(b.indexOf('> ')===0) body += '<p class="pull">'+b.slice(2)+'</p>';
+    else body += '<p>'+b+'</p>';
+    if(i===1 && a.facts) body += factsBox(a.facts);
+  });
+  var rel = inSec(a.sec).filter(function(x){ return x.id!==a.id; });
+  ARTICLES.forEach(function(x){ if(rel.length<3 && x.id!==a.id && rel.indexOf(x)<0) rel.push(x); });
+  rel = rel.slice(0,3);
+  return '<div class="page"><article class="article"><div class="crumb"><a href="#home">Home</a><span>/</span><a href="#s-'+a.sec+'">'+secName(a)+'</a></div>' +
+    '<span class="kicker">'+a.kicker+'</span><h1>'+a.title+'</h1><p class="dek">'+a.dek+'</p>' +
+    '<div class="byline meta"><div class="who"><span>By <b>'+a.by+'</b></span><span>'+a.time+'</span><span>'+a.read+' min read</span></div><button class="btn ghost" type="button" id="copy">Copy link</button></div>' +
+    (a.img ? '<figure style="margin:22px 0"><div class="img">'+img(a.img)+'</div><figcaption class="meta">Illustration: IPProtection 24 graphics desk</figcaption></figure>' : '<div style="height:18px"></div>') +
+    '<div class="prose">'+body+'</div>' +
+    '<p class="note">This article is general information, not legal advice. Platform policies change often, so check the current help pages before you act. For a specific dispute, speak to a qualified lawyer.</p>' +
+    '<section class="related"><h4 class="kicker">Related</h4><div class="row">' + rel.map(function(x){ return '<a class="art" href="'+aHref(x)+'"><span class="meta">'+secName(x)+'</span><h3>'+x.title+'</h3></a>'; }).join('') + '</div></section></article></div>';
+}
+
+function topicChips(){
+  return TOPICS.map(function(t){ return '<button type="button" data-topic="'+t+'">#'+t.replace(/\s+/g,'')+'</button>'; }).join('');
+}
+
+var PAGES = {
+  trending:function(){
+    var max = parseFloat(TRENDING[0].reads);
+    return '<div class="page"><div class="crumb"><a href="#home">Home</a><span>/</span><span>Trending</span></div>' +
+      '<header class="sec-head"><div><h1>Trending</h1><p>The stories creators are reading most this week, ranked by reads over the past seven days.</p></div></header>' +
+      '<div class="sec-grid"><ol class="trend-list">' + TRENDING.map(function(t,i){ var a=BY_ID[t.id];
+        return '<li><span class="tn">'+(i+1)+'</span><a class="art" href="'+aHref(a)+'"><span class="kicker">'+secName(a)+'</span><h3>'+a.title+'</h3><p>'+a.dek+'</p>' +
+          '<div class="bar" aria-hidden="true"><span style="width:'+Math.round(parseFloat(t.reads)/max*100)+'%"></span></div>' +
+          '<div class="meta"><b>'+t.reads+'</b> reads · <span class="rise">▲ '+t.change+'</span> vs last week</div></a></li>'; }).join('') + '</ol>' +
+      '<aside class="side"><div><h4 class="head">Trending topics</h4><div class="chips">'+topicChips()+'</div><p class="meta" style="margin-top:10px">Tap a topic to search related articles.</p></div>'+promo()+'</aside></div></div>';
+  },
+  search:function(){
+    var tags = ["copyright strike","Reels music","trademark","fair use","reupload","real estate scam"];
+    return '<div class="page"><div class="crumb"><a href="#home">Home</a><span>/</span><span>Search</span></div><header class="sec-head"><div><h1>Search</h1><p>Find articles and guides by keyword.</p></div></header>' +
+      '<form class="form searchbar" id="search-form" role="search"><input type="search" id="q" placeholder="Try “strike” or “Reels music”" aria-label="Search articles"><button class="btn" type="submit">Search</button></form>' +
+      '<div class="chips" style="margin-bottom:18px">'+tags.map(function(t){ return '<button type="button" data-q="'+t+'">'+t+'</button>'; }).join('')+'</div>' +
+      '<p class="meta" id="count"></p><div class="results narrow" id="results"></div></div>';
+  },
+  newsletter:function(){
+    return '<div class="page"><div class="crumb"><a href="#home">Home</a><span>/</span><span>Newsletter</span></div><header class="sec-head"><div><h1>Newsletter</h1><p>The weekly takedown digest: platform rule changes and one practical guide, every Friday.</p></div></header>' +
+      '<form class="form" id="news-form" novalidate><div class="field"><label for="n-email">Email address</label><input type="email" id="n-email" required placeholder="you@example.com"></div>' +
+      '<fieldset><legend>Topics</legend><label class="check"><input type="checkbox" id="t-ig" checked> Instagram</label><label class="check"><input type="checkbox" id="t-yt" checked> YouTube</label><label class="check"><input type="checkbox" id="t-tm"> Copyright and trademarks</label></fieldset>' +
+      '<div class="field"><label for="n-freq">How often</label><select id="n-freq"><option>Weekly digest</option><option>Breaking updates only</option></select></div>' +
+      '<button class="btn" type="submit">Subscribe</button></form><div class="status" id="news-status" hidden style="margin-top:16px"></div></div>';
+  },
+  contact:function(){
+    return '<div class="page"><div class="crumb"><a href="#home">Home</a><span>/</span><span>Contact</span></div><header class="sec-head"><div><h1>Contact</h1><p>Send a story tip, a correction or a question for our guides desk.</p></div></header>' +
+      '<form class="form" id="contact-form" novalidate><div class="field"><label for="c-name">Name</label><input type="text" id="c-name" required></div>' +
+      '<div class="field"><label for="c-email">Email</label><input type="email" id="c-email" required></div>' +
+      '<div class="field"><label for="c-topic">Topic</label><select id="c-topic"><option>Story tip</option><option>Correction</option><option>Question for the guides desk</option><option>Something else</option></select></div>' +
+      '<div class="field"><label for="c-msg">Message</label><textarea id="c-msg" required></textarea></div>' +
+      '<button class="btn" type="submit">Send message</button></form><div class="status" id="contact-status" hidden style="margin-top:16px"></div></div>';
+  },
+  about:function(){
+    return '<div class="page narrow"><div class="crumb"><a href="#home">Home</a><span>/</span><span>About us</span></div><header class="sec-head"><div><h1>About us</h1></div></header>' +
+      '<p>IPProtection 24 covers the rules that decide who owns what online. We write for creators, photographers, musicians and small brands who publish on Instagram, YouTube and other platforms.</p>' +
+      '<h2>What we cover</h2><p>Copyright claims and strikes, reposts and reuploads, music licensing, trademarks for channel names and merchandise, and the practical steps that help you prove a piece of work is yours.</p>' +
+      '<h2>How we work</h2><p>Our guides explain how things generally work. They are not legal advice, and platform policies change often. We link readers to the platforms’ own help pages and recommend a lawyer when the stakes are high.</p>' +
+      '<h2>About this site</h2><p>This is a demo site. The writers named in bylines and the creators described in stories are fictional.</p>' +
+      '<p><a class="btn" href="#contact">Contact the newsroom</a></p></div>';
+  },
+  terms:function(){
+    return '<div class="page narrow"><div class="crumb"><a href="#home">Home</a><span>/</span><span>Terms, privacy and disclaimer</span></div><header class="sec-head"><div><h1>Terms, privacy and disclaimer</h1></div></header>' +
+      '<h2>Disclaimer</h2><p>Everything on IPProtection 24 is general information. It is not legal advice and does not create a lawyer–client relationship. Laws differ between countries and platform rules change, so check the current rules and get professional advice for your situation.</p>' +
+      '<h2>Privacy</h2><p>This demo site does not store or send anything you type into its forms. Newsletter and contact forms show a confirmation on screen only.</p>' +
+      '<h2>Trademarks</h2><p>Instagram, Meta, YouTube and Google are trademarks of their respective owners. IPProtection 24 is not affiliated with or endorsed by them.</p>' +
+      '<h2>Terms of use</h2><p>You may share links to our articles. Please do not republish full articles without permission.</p></div>';
+  }
+};
+
+var view = document.getElementById('view');
+var navLinks = document.querySelectorAll('#nav a');
+
+function route(){
+  var h = location.hash.slice(1) || 'home', html, key = h;
+  if(h.indexOf('s-')===0 && SECTIONS[h.slice(2)]) html = section(h.slice(2));
+  else if(h.indexOf('a-')===0 && BY_ID[h.slice(2)]){ var a = BY_ID[h.slice(2)]; html = article(a); key = 's-'+a.sec; }
+  else if(PAGES[h]) html = PAGES[h]();
+  else { html = home(); key = 'home'; }
+  view.innerHTML = html;
+  navLinks.forEach(function(l){ l.classList.toggle('on', l.getAttribute('href')==='#'+key); });
+  window.scrollTo(0,0);
+  bind(h);
+}
+
+function bind(h){
+  var copy = document.getElementById('copy');
+  if(copy) copy.addEventListener('click', function(){
+    var url = location.href;
+    function done(t){ copy.textContent = t; setTimeout(function(){ copy.textContent='Copy link'; }, 2200); }
+    try{ navigator.clipboard.writeText(url).then(function(){ done('Link copied'); }, function(){ done('Copy failed'); }); }catch(e){ done('Copy failed'); }
+  });
+
+  var sf = document.getElementById('search-form');
+  if(sf){
+    var q = document.getElementById('q');
+    var run = function(){
+      var term = q.value.trim().toLowerCase(), out = document.getElementById('results'), count = document.getElementById('count');
+      if(!term){ out.innerHTML=''; count.textContent = 'Type a keyword or pick a topic above.'; return; }
+      var words = term.split(/\s+/);
+      var hits = ARTICLES.filter(function(a){ var t=(a.title+' '+a.dek+' '+a.body.join(' ')+' '+SECTIONS[a.sec].name).toLowerCase(); return words.every(function(w){ return t.indexOf(w)>-1; }); });
+      count.textContent = hits.length + (hits.length===1?' result':' results') + ' for “' + q.value.trim() + '”';
+      out.innerHTML = hits.length ? hits.map(function(a){ return '<a class="art" href="'+aHref(a)+'"><span class="kicker">'+secName(a)+'</span><h3>'+a.title+'</h3><p>'+a.dek+'</p></a>'; }).join('') : '<p>No articles match. Try a broader word such as “copyright” or “Instagram”.</p>';
+    };
+    sf.addEventListener('submit', function(e){ e.preventDefault(); run(); });
+    q.addEventListener('input', run);
+    document.querySelectorAll('[data-q]').forEach(function(b){ b.addEventListener('click', function(){ q.value = b.getAttribute('data-q'); run(); }); });
+    if(pendingQ){ q.value = pendingQ; pendingQ = ""; }
+    run(); q.focus();
+  }
+
+  document.querySelectorAll('[data-topic]').forEach(function(b){
+    b.addEventListener('click', function(){
+      pendingQ = b.getAttribute('data-topic');
+      if(location.hash === '#search') route(); else location.hash = 'search';
+    });
+  });
+
+  var nf = document.getElementById('news-form');
+  if(nf) nf.addEventListener('submit', function(e){
+    e.preventDefault();
+    var em = document.getElementById('n-email'), st = document.getElementById('news-status');
+    if(!em.checkValidity()){ st.hidden=false; st.textContent='Enter a valid email address, for example name@example.com.'; em.focus(); return; }
+    var topics = [['t-ig','Instagram'],['t-yt','YouTube'],['t-tm','Copyright and trademarks']].filter(function(t){ return document.getElementById(t[0]).checked; }).map(function(t){ return t[1]; });
+    if(!topics.length){ st.hidden=false; st.textContent='Pick at least one topic.'; return; }
+    st.hidden=false; st.textContent='Subscribed '+em.value+' to the '+document.getElementById('n-freq').value.toLowerCase()+' on '+topics.join(', ')+'. This is a demo site, so no emails will be sent.';
+    nf.reset();
+  });
+
+  var cf = document.getElementById('contact-form');
+  if(cf) cf.addEventListener('submit', function(e){
+    e.preventDefault();
+    var st = document.getElementById('contact-status');
+    var bad = ['c-name','c-email','c-msg'].map(function(id){ return document.getElementById(id); }).filter(function(el){ return !el.checkValidity(); });
+    if(bad.length){ st.hidden=false; st.textContent='Please fill in your name, a valid email and a message.'; bad[0].focus(); return; }
+    st.hidden=false; st.textContent='Thanks, '+document.getElementById('c-name').value.trim()+'. Your message is ready. This is a demo site, so it was not sent anywhere.';
+    cf.reset();
+  });
+}
+
+(function init(){
+  try{ document.getElementById('today').textContent = new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'}); }catch(e){}
+  document.getElementById('ticker').innerHTML = ["karrm-raw-footage","legal-notice-oberoi","karrm-fallout"].map(function(id){ var a=BY_ID[id]; return '<a href="'+aHref(a)+'">'+a.title+'</a>'; }).join(' · ');
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
+</body></html>
