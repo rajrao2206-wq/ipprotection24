@@ -383,15 +383,20 @@
         }
         .article-video-wrap {
             width: 100%;
+            max-width: 100%;
             background: #000;
             border: 1px solid var(--border);
             margin: 24px 0 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .article-video-clip {
             width: 100%;
             height: auto;
+            max-height: 560px;
+            object-fit: contain;
             display: block;
-            max-height: 480px;
         }
         .article-img-caption {
             font-family: var(--font-sans);
@@ -637,7 +642,7 @@
         const dateOptions = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
         document.getElementById('date-display').textContent = new Date().toLocaleDateString('en-IN', dateOptions);
 
-        // Master Articles Database — Includes Embedded 10s Video Clip for Vivek Oberoi Article
+        // Master Articles Database
         const ARTICLES = [
             // --- YOUTUBE SERIES ---
             {
