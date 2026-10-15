@@ -384,18 +384,17 @@
         .article-video-wrap {
             width: 100%;
             max-width: 100%;
+            aspect-ratio: 16 / 9;
             background: #000;
             border: 1px solid var(--border);
             margin: 24px 0 10px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow: hidden;
+            position: relative;
         }
         .article-video-clip {
             width: 100%;
-            height: auto;
-            max-height: 560px;
-            object-fit: contain;
+            height: 100%;
+            object-fit: cover;
             display: block;
         }
         .article-img-caption {
