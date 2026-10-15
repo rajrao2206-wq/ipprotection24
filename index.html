@@ -381,6 +381,18 @@
             height: auto;
             display: block;
         }
+        .article-video-wrap {
+            width: 100%;
+            background: #000;
+            border: 1px solid var(--border);
+            margin: 24px 0 10px 0;
+        }
+        .article-video-clip {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 480px;
+        }
         .article-img-caption {
             font-family: var(--font-sans);
             font-size: 0.8rem;
@@ -625,7 +637,7 @@
         const dateOptions = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
         document.getElementById('date-display').textContent = new Date().toLocaleDateString('en-IN', dateOptions);
 
-        // Master Articles Database — Dedicated Webpages with Correct YouTube Dates & Instagram Evidence
+        // Master Articles Database — Includes Embedded 10s Video Clip for Vivek Oberoi Article
         const ARTICLES = [
             // --- YOUTUBE SERIES ---
             {
@@ -650,6 +662,7 @@
                 sec: ["home", "youtube", "trending", "copyright"],
                 kicker: "INVESTIGATION",
                 img: "U0le9XnFLO8-HD.jpg",
+                videoClip: "vivek-oberoi-clip.mp4",
                 fallbacks: [],
                 by: "Raj Singh",
                 time: "January 10, 2026",
@@ -883,6 +896,17 @@
                             </div>
                             <div class="article-img-caption">
                                 ARCHIVE RECORD — Photograph & documentation logged on ${art.time} by${art.by}. Displayed in full uncropped aspect ratio.
+                            </div>
+                        ` : ''}
+                        ${art.videoClip ? `
+                            <div class="article-video-wrap">
+                                <video class="article-video-clip" controls playsinline preload="metadata">
+                                    <source src="${encodeURI(art.videoClip)}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="article-img-caption">
+                                EVIDENCE CLIP — 10-Second Investigative Footage • Logged ${art.time} by${art.by}
                             </div>
                         ` : ''}
                         <div class="article-body">
